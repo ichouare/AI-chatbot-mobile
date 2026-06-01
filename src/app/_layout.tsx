@@ -1,15 +1,50 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import { useColorScheme } from 'react-native';
+import { useFonts } from "expo-font";
+import { SplashScreen, Stack } from "expo-router";
+import { useEffect } from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { COLORS } from "../../constants/COLORS";
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+export default function RootLayout() {
+  const [fontisLoad] = useFonts({
+    light: require("../../assets/fonts/Roboto-Light.ttf"),
+    Medium: require("../../assets/fonts/Roboto-Medium.ttf"),
+    bold: require("../../assets/fonts/Roboto-Bold.ttf"),
+    semiBold: require("../../assets/fonts/Roboto-SemiBold.ttf"),
+    extraBold: require("../../assets/fonts/Roboto-ExtraBold.ttf"),
+  });
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  useEffect(() => {
+    if (!fontisLoad) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontisLoad]);
+
+  if (!fontisLoad) return null;
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <SafeAreaProvider style={{ backgroundColor: COLORS.white }}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen
+          name="terms"
+          options={{
+            presentation: "fullScreenModal",
+            animation: "slide_from_bottom",
+            animationDuration: 0.5,
+          }}
+        />
+        <Stack.Screen
+          name="language"
+          options={{
+            presentation: "fullScreenModal",
+            animation: "slide_from_bottom",
+            animationDuration: 0.5,
+          }}
+        />
+      </Stack>
+    </SafeAreaProvider>
   );
 }
