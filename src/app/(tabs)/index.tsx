@@ -1,5 +1,6 @@
 import { Avatar } from "@/components/Avatar";
 import Button from "@/components/Button";
+import ExplorerPrompt from "@/components/ExplorerPrompt";
 import Header from "@/components/Header";
 import PopulatePrompt from "@/components/PopulatePrompt";
 import SuggestedHistory from "@/components/suggestedHistory";
@@ -55,6 +56,7 @@ export default function Home() {
           />
         </View>
         <SuggestedHistory />
+        <ExplorerPrompt />
         <PopulatePrompt />
       </ScrollView>
     </View>

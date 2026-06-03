@@ -1,10 +1,16 @@
 import MyTabBar from "@/components/MyTabBar";
-import { Tabs } from "expo-router";
+import { Tabs, useSegments } from "expo-router";
 
 export function _layout() {
+  // 1. Get the current active route segments array
+  const segments = useSegments();
+
+  // 2. Check if the user is currently on the "Aichat" screen
+  // Expo router segments look like: ['(tabs)', 'Aichat']
+  const shouldHideTabBar = segments.includes("Aichat" as never);
   return (
     <Tabs
-      tabBar={(props) => <MyTabBar {...props} />}
+      tabBar={(props) => !shouldHideTabBar && <MyTabBar {...props} />}
       screenOptions={{
         headerShown: false,
       }}

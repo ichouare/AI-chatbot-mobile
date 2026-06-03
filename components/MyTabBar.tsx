@@ -38,7 +38,6 @@ export default function MyTabBar({
             navigation.navigate(route.name, route.params);
           }
         };
-
         return (
           <TouchableOpacity
             key={route.name}
